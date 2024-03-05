@@ -14,8 +14,8 @@ The configuration file needs to be created under **/opt/qradar/bin/ca_jail/pure.
 Click [here](https://support.purestorage.com/FlashArray/PurityFA/FlashArray_Admin_and_CLI_Reference_Guides) and refer to the section Creating API Tokens for details on how to create an api_token.  
 
 Config file has only one entry per FlashArray.
-To incorporate new Volumes or Protection Groups, you can perform an in-place edit on the corresponding array line within the file. 
-The plugins will automatically detect these changes for subsequent executions. When adding a new array and you must users should append a new line to the file. as illustrated below, and provide the required details accordingly.                 The following table illustrates an example for the variables in the file: 
+To incorporate a new Volume or Protection Group, you can perform an in-place edit on the corresponding array line within the file. 
+The plugins  automatically detect the changes for subsequent executions. When adding a new array, you must append a new line to the file and provide the required details as described in the following table:
 
 | Name                  | Type        | Description                                 | Required |
 | --------------------- | ----------- | ------------------------------------------- | -------- |
@@ -60,11 +60,11 @@ Scripts parameters can be fixed property or network event property which is exta
 
 The python script supports following actions. 
 
-1. Create single volume snapshot (action = vol_snapshot )
+1. Create single volume snapshot (action = vol_snapshot ).
 
 ![alt text](images/image1.png)
 
-2. Create multiple volume snapshot action = multivol_snapshot).
+2. Create multiple volume snapshot (action = multivol_snapshot).
 
 ![alt text](images/image4.png)
 
@@ -81,7 +81,7 @@ The python script supports following actions.
 To test the script by using the Test Execution
 
 
-1. In the IBM QRadar GUI, open the **Admin settings** tab
+1. In the IBM QRadar GUI, open the **Admin settings** tab.
 2. Click the navigation menu and then click **Admin** to open the Admin tab.
 2. Scroll down to **Custom Actions**.
 3. Click **Define Actions**.
