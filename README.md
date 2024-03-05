@@ -9,7 +9,7 @@ based on a rule response.
 This document describes a sample custom action script for Pure Storage FlashArray which can be used with QRadar. It provides details on the script's available action, inputs required for the script to run, and the configuration file to be created.
 
 ## Create the Configuration File
-The configuration file needs to be created under “/opt/qradar/bin/ca_jail/pure.conf” with the following parameters on the QRadar SIEM server:
+The configuration file needs to be created under **/opt/qradar/bin/ca_jail/pure.conf** with the following parameters on the QRadar SIEM server:
 
 Click [here](https://support.purestorage.com/FlashArray/PurityFA/FlashArray_Admin_and_CLI_Reference_Guides) and refer to the section Creating API Tokens for details on how to create an api_token.  
 
