@@ -5,11 +5,23 @@ import sys
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import os
+import platform
 
 # Disable InsecureRequestWarning from urllib3 
 # Suppress the warning about insecure requests (only use this for testing purposes)
 urllib3.disable_warnings()
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+
+USER_AGENT_BASE = 'QRadar-Integration'
+VERSION = 'v1.0'
+user_agent = "%(base)s %(class)s/%(version)s (%(platform)s)" % {
+            "base": USER_AGENT_BASE,
+            "class": __name__,
+            "version": VERSION,
+            "platform": platform.platform(),
+        }
+
 
 # Function to create a  PG snapshot
 def create_pg_snapshot(array_name, pg_name, xAuthToken, request_body=None):
@@ -18,7 +30,7 @@ def create_pg_snapshot(array_name, pg_name, xAuthToken, request_body=None):
 
     try:
         # Make a POST request to the API endpoint
-        response = requests.post(api_url, headers={'x-auth-token': xAuthToken}, json=request_body, verify=False)
+        response = requests.post(api_url, headers={'x-auth-token': xAuthToken, 'User-agent': user_agent}, json=request_body, verify=False)
 
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
@@ -46,7 +58,7 @@ def create_vol_snapshot(array_name, volume_name, xAuthToken, request_body=None):
 
     try:
         # Make a POST request to the API endpoint
-        response = requests.post(api_url, headers={'x-auth-token': xAuthToken}, json=request_body, verify=False)
+        response = requests.post(api_url, headers={'x-auth-token': xAuthToken, 'User-agent': user_agent}, json=request_body, verify=False)
 
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
@@ -74,7 +86,7 @@ def remove_user(array_name, user_name,xAuthToken):
 
     try:
         # Make a POST request to the API endpoint
-        response = requests.delete(api_url, headers={'x-auth-token': xAuthToken}, json=request_body, verify=False)
+        response = requests.delete(api_url, headers={'x-auth-token': xAuthToken, 'User-agent': user_agent}, json=request_body, verify=False)
 
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
@@ -153,7 +165,7 @@ if __name__ == "__main__":
 
         try:
                 # Make a POST request to the API endpoint
-                response = requests.post(url, headers={'api-token': api_token}, verify=False)
+                response = requests.post(url, headers={'api-token': api_token, 'User-agent': user_agent}, verify=False)
 
                 # Check if the request was successful (status code 200)
                 if response.status_code == 200:
