@@ -8,6 +8,8 @@ based on a rule response.
 
 This document describes a sample custom action script for Pure Storage FlashArray which can be used with QRadar. It provides details on the script's available action, inputs required for the script to run, and the configuration file to be created.
 
+## FlashArray Configuration
+
 ## Create the Configuration File
 The configuration file needs to be created under **/opt/qradar/bin/ca_jail/pure.conf** with the following parameters on the QRadar SIEM server:
 
@@ -87,3 +89,75 @@ To test the script by using the Test Execution
 3. Click **Define Actions**.
 4. Highlight the test script.
 5. Click **Test Execution → Execute**.
+
+## FlashBlade Configuration 
+
+## Create the Configuration File
+The configuration file needs to be created under **/opt/qradar/bin/ca_jail/pure.conf** with the following parameters on the QRadar SIEM server:
+
+https://support.purestorage.com/bundle/m_purityfb_rest_api/page/FlashBlade/Purity_FB/PurityFB_REST_API/Management_REST_API/topics/reference/r_flashblade_management_rest_api_reference.html  and refer to the section Creating API Tokens for details on how to create an api_token.  
+
+Config file has only one entry per FlashBlade.
+To incorporate a new Filesystem, you can perform an in-place edit on the corresponding array line within the file. 
+The plugins  automatically detect the changes for subsequent executions. When adding a new array, you must append a new line to the file and provide the required details as described in the following table:
+
+| Name                  | Type        | Description                                 | Required |
+| --------------------- | ----------- | ------------------------------------------- | -------- |
+| Array controller      | String      | IP Address of the FlashBlade                | Yes      |
+| API Token             | String      | API token access the FlashBlade             | Yes      |
+| filesystem list       | List        | List of filesystems to create a snapshot    | Yes      |
+
+
+
+Sample configuration file
+
+```
+pure-flashblade-1:xxxxx-fffff-xccccc-ccceeee:aa_test_filesystem,filesystem2
+pure-flashlade-2:xxxxx-fffff-xccccc-ccceeee:test_filesystem,pp_filesystem
+```
+
+## Configuring custom action script on QRadar
+
+The custom script must be uploaded into IBM QRadar by using the Define Actions icon in
+the Admin tab of the IBM QRadar GUI. Download and save the python script to the same location on the local drive that is used to access IBM QRadar 
+
+
+### Creating a custom action script
+This section explains how to create custom action scripts that can be associated with QRadar events. You have to complete the following steps:
+
+1. Download the python script.
+2. In the IBM QRadar GUI, open the **Admin settings** tab.
+3. Click the navigation menu, and then click **Admin** to open the **Admin** tab.
+4. Under **Custom Actions**, click **Define Actions**.
+5. To upload your scripts, click **Add**.
+6. Under **Basic Information**, type a name for the custom action.
+7. Scroll down to **Script configuration** and select **Interpreter: Bash, python, perl**.
+8. Click **Browse** and find the file that you created in step 1.
+9. Scroll down and click **Save** to save the changes made and select **Deploy Changes**. 
+
+### Script configuration for different actions
+
+Scripts parameters can be fixed property or network event property which is extacted from the event. 
+
+The python script supports following actions. 
+
+1. Create single filesystem snapshot (action = fs_snapshot ).
+
+![alt text](images/SingleFilesystemSnapshot.png)
+
+2. Create multiple filesystem snapshot (action = multifs_snapshot).
+
+![alt text](images/MultiFilesystemSnapshot.png)
+
+### Testing the custom action script
+
+To test the script by using the Test Execution
+
+
+1. In the IBM QRadar GUI, open the **Admin settings** tab.
+2. Click the navigation menu and then click **Admin** to open the Admin tab.
+2. Scroll down to **Custom Actions**.
+3. Click **Define Actions**.
+4. Highlight the test script.
+5. Click **Test Execution → Execute**.
+
